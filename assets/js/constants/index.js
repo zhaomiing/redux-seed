@@ -7,7 +7,8 @@
 import keyMirror from 'keymirror';
 
 export default keyMirror({
+  SELECT_OTHER_DATE: null,
   DELETE_STORY: null,
-  LOADED_STORY: null,
-  LOAD_OHTER_DATE: null
+  ADD_STORY: null,
+  SET_READ_STATUS: null
 });

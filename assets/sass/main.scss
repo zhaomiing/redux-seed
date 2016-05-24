@@ -1,4 +1,48 @@
+@import './common/antd.scss';
+
 body{
-  margin: 0;
-  padding: 0;
+  padding: 30px;
+}
+
+.m-storyList {
+  margin: 10px 0;
+}
+
+.m-storyItem{
+  float: left;
+  width: 160px;
+  height: 100px;
+  margin-right: 10px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+  a:first-child{
+    display: block;
+    text-align: center;
+  }
+}
+
+.s-read {
+  background-color: #ffc;
+  a{
+    color: red;
+  }
+}
+.m-loading {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  z-index: 100001;
+  width: 200px;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+  margin-left: -100px;
+  font-size: 14px;
+  background-color: #31708f;
+  color: #fff;
 }
