@@ -17,6 +17,7 @@ console.log(DatepickerContainer);
 export default () => {
   return (
       <div>
+        <h1>Thinking in Redux</h1>
         <DatepickerContainer />
         <StoriesContainer />
       </div>

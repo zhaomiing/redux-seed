@@ -46006,6 +46006,11 @@
 	  return _react2.default.createElement(
 	    'div',
 	    null,
+	    _react2.default.createElement(
+	      'h1',
+	      null,
+	      'Thinking in Redux'
+	    ),
 	    _react2.default.createElement(_datepickerContainer2.default, null),
 	    _react2.default.createElement(_StoriesContainer2.default, null)
 	  );
