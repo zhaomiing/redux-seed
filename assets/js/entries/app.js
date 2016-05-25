@@ -13,7 +13,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import appReducer from '../reducers';
-import App from '../components/app';
+import AppContainer from '../containers/appContainer';
 import '../../sass/main.scss';
 
 let store = createStore(
@@ -26,7 +26,7 @@ let store = createStore(
 
 render(
     <Provider store={store}>
-      <App />
+      <AppContainer />
     </Provider>,
     document.getElementById('j-app')
 );

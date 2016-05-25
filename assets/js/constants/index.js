@@ -12,5 +12,7 @@ export default keyMirror({
   ADD_STORY: null,
   SET_READ_STATUS: null,
   RECEIVE_POSTS: null,
-  REQUEST_POSTS: null
+  REQUEST_POSTS: null,
+  NEW_STORIES: null,
+  DO_REQUEST: null
 });

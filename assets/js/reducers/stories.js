@@ -29,9 +29,12 @@ export default (state = initState, action) => {
     break;
 
     case actionType.SET_READ_STATUS:
-      return state.stories.map(story => {
+      // debugger;
+      const shadow = state.stories.map(story => {
         return storyReducer(story, action);
       });
+
+      return assign({}, state, { stories: shadow});
 
     case actionType.REQUEST_POSTS:
       return assign({}, state, {
@@ -41,6 +44,11 @@ export default (state = initState, action) => {
     case actionType.RECEIVE_POSTS:
       return assign({}, state, {
         loading: false
+      });
+
+    case actionType.NEW_STORIES:
+      return assign({}, state, {
+        stories: action.stories
       });
 
     default: 

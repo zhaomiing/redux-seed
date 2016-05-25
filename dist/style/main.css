@@ -11098,10 +11098,11 @@ h1 {
   margin: 10px 0; }
 
 .m-storyItem {
+  position: relative;
   float: left;
   width: 160px;
   height: 100px;
-  margin-right: 10px;
+  margin: 10px 10px 0 0;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -11111,6 +11112,15 @@ h1 {
   .m-storyItem a:first-child {
     display: block;
     text-align: center; }
+  .m-storyItem .i-x {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 5px;
+    cursor: pointer;
+    color: #ccc; }
+  .m-storyItem:hover .i-x {
+    display: inline; }
 
 .s-read {
   background-color: #ffc; }

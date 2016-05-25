@@ -22,6 +22,10 @@ const mapDispatchToProps = (dispatch) => {
     onChildClick: (id) => {
       // debugger;
       dispatch(actionCreator.SET_READ_STATUS(id));
+    },
+
+    deleteChildBtn: (id) => {
+      dispatch(actionCreator.DELETE_STORY(id));
     }
   }
 };

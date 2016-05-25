@@ -11,7 +11,7 @@
 import React, { PropTypes } from 'react';
 import Story from './story';
 
-const Stories = ({ stories, loading, onChildClick }) => {
+const Stories = ({ stories, loading, onChildClick, deleteChildBtn }) => {
   if(loading) return (
       <div className="m-loading">loading</div>
   );
@@ -23,6 +23,7 @@ const Stories = ({ stories, loading, onChildClick }) => {
             key={ story.id }
             { ...story }
             onClick={ () => onChildClick(story.id) }
+            deleteBtn={ () => deleteChildBtn(story.id) }
           />
         )
       }
@@ -38,7 +39,8 @@ Stories.propTypes = {
     title: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired
   }).isRequired).isRequired,
-  onChildClick: PropTypes.func.isRequired
+  onChildClick: PropTypes.func.isRequired,
+  deleteChildBtn: PropTypes.func.isRequired
 };
 
 export default Stories;

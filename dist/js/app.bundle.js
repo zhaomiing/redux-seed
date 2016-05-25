@@ -64,19 +64,19 @@
 
 	var _redux = __webpack_require__(463);
 
-	var _reduxThunk = __webpack_require__(498);
+	var _reduxThunk = __webpack_require__(478);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-	var _reducers = __webpack_require__(478);
+	var _reducers = __webpack_require__(479);
 
 	var _reducers2 = _interopRequireDefault(_reducers);
 
-	var _app = __webpack_require__(487);
+	var _appContainer = __webpack_require__(489);
 
-	var _app2 = _interopRequireDefault(_app);
+	var _appContainer2 = _interopRequireDefault(_appContainer);
 
-	__webpack_require__(497);
+	__webpack_require__(502);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -87,7 +87,7 @@
 	(0, _reactDom.render)(_react2.default.createElement(
 	    _reactRedux.Provider,
 	    { store: store },
-	    _react2.default.createElement(_app2.default, null)
+	    _react2.default.createElement(_appContainer2.default, null)
 	), document.getElementById('j-app'));
 
 /***/ },
@@ -29185,6 +29185,34 @@
 
 /***/ },
 /* 478 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	function createThunkMiddleware(extraArgument) {
+	  return function (_ref) {
+	    var dispatch = _ref.dispatch;
+	    var getState = _ref.getState;
+	    return function (next) {
+	      return function (action) {
+	        if (typeof action === 'function') {
+	          return action(dispatch, getState, extraArgument);
+	        }
+
+	        return next(action);
+	      };
+	    };
+	  };
+	}
+
+	var thunk = createThunkMiddleware();
+	thunk.withExtraArgument = createThunkMiddleware;
+
+	exports['default'] = thunk;
+
+/***/ },
+/* 479 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -29201,11 +29229,11 @@
 
 	var _redux = __webpack_require__(463);
 
-	var _datepicker = __webpack_require__(479);
+	var _datepicker = __webpack_require__(480);
 
 	var _datepicker2 = _interopRequireDefault(_datepicker);
 
-	var _stories = __webpack_require__(482);
+	var _stories = __webpack_require__(484);
 
 	var _stories2 = _interopRequireDefault(_stories);
 
@@ -29219,7 +29247,7 @@
 	exports.default = appReducer;
 
 /***/ },
-/* 479 */
+/* 480 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -29234,30 +29262,21 @@
 	  value: true
 	});
 
-	var _constants = __webpack_require__(480);
+	var _constants = __webpack_require__(481);
 
 	var _constants2 = _interopRequireDefault(_constants);
 
+	var _utils = __webpack_require__(483);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var formatDate = function formatDate(d) {
-	  var year = d.getFullYear(),
-	      month = d.getMonth() + 1,
-	      date = d.getDate();
-
-	  if (month < 10) month = '0' + month;
-	  if (date < 10) date = '0' + date;
-
-	  return '' + year + month + date;
-	};
-
 	exports.default = function () {
-	  var state = arguments.length <= 0 || arguments[0] === undefined ? formatDate(new Date()) : arguments[0];
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? (0, _utils.formatDate)(new Date()) : arguments[0];
 	  var action = arguments[1];
 
 	  switch (action.type) {
 	    case _constants2.default.SELECT_OTHER_DATE:
-	      return formatDate(action.date);
+	      return action.date;
 
 	    default:
 	      return state;
@@ -29265,7 +29284,7 @@
 	};
 
 /***/ },
-/* 480 */
+/* 481 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29274,7 +29293,7 @@
 	  value: true
 	});
 
-	var _keymirror = __webpack_require__(481);
+	var _keymirror = __webpack_require__(482);
 
 	var _keymirror2 = _interopRequireDefault(_keymirror);
 
@@ -29286,7 +29305,9 @@
 	  ADD_STORY: null,
 	  SET_READ_STATUS: null,
 	  RECEIVE_POSTS: null,
-	  REQUEST_POSTS: null
+	  REQUEST_POSTS: null,
+	  NEW_STORIES: null,
+	  DO_REQUEST: null
 	}); /**
 	     * action_types
 	     * @author ZhaoMing<zhaoming.me#gmail.com>
@@ -29294,7 +29315,7 @@
 	     */
 
 /***/ },
-/* 481 */
+/* 482 */
 /***/ function(module, exports) {
 
 	/**
@@ -29353,7 +29374,33 @@
 
 
 /***/ },
-/* 482 */
+/* 483 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	/**
+	 * index.js
+	 * @author ZhaoMing<zhaoming.me#gmail.com>
+	 * @date 25/05/2016
+	 */
+
+	var formatDate = exports.formatDate = function formatDate(d) {
+	  var year = d.getFullYear(),
+	      month = d.getMonth() + 1,
+	      date = d.getDate();
+
+	  if (month < 10) month = '0' + month;
+	  if (date < 10) date = '0' + date;
+
+	  return '' + year + month + date;
+	};
+
+/***/ },
+/* 484 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -29368,19 +29415,19 @@
 	  value: true
 	});
 
-	var _lodash = __webpack_require__(483);
+	var _lodash = __webpack_require__(485);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
-	var _constants = __webpack_require__(480);
+	var _constants = __webpack_require__(481);
 
 	var _constants2 = _interopRequireDefault(_constants);
 
-	var _objectAssign = __webpack_require__(486);
+	var _objectAssign = __webpack_require__(487);
 
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 
-	var _story = __webpack_require__(485);
+	var _story = __webpack_require__(488);
 
 	var _story2 = _interopRequireDefault(_story);
 
@@ -29407,9 +29454,12 @@
 	      break;
 
 	    case _constants2.default.SET_READ_STATUS:
-	      return state.stories.map(function (story) {
+	      // debugger;
+	      var shadow = state.stories.map(function (story) {
 	        return (0, _story2.default)(story, action);
 	      });
+
+	      return (0, _objectAssign2.default)({}, state, { stories: shadow });
 
 	    case _constants2.default.REQUEST_POSTS:
 	      return (0, _objectAssign2.default)({}, state, {
@@ -29421,13 +29471,18 @@
 	        loading: false
 	      });
 
+	    case _constants2.default.NEW_STORIES:
+	      return (0, _objectAssign2.default)({}, state, {
+	        stories: action.stories
+	      });
+
 	    default:
 	      return state;
 	  }
 	};
 
 /***/ },
-/* 483 */
+/* 485 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/**
@@ -45835,10 +45890,10 @@
 	  }
 	}.call(this));
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(484)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(486)(module), (function() { return this; }())))
 
 /***/ },
-/* 484 */
+/* 486 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -45854,61 +45909,7 @@
 
 
 /***/ },
-/* 485 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * story.js
-	 * @author ZhaoMing<zhaoming.me#gmail.com>
-	 * @date 24/05/2016
-	 */
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _objectAssign = __webpack_require__(486);
-
-	var _objectAssign2 = _interopRequireDefault(_objectAssign);
-
-	var _constants = __webpack_require__(480);
-
-	var _constants2 = _interopRequireDefault(_constants);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = function (state, action) {
-	  switch (action.type) {
-	    case _constants2.default.ADD_STORY:
-	      return {
-	        id: action.id,
-	        images: action.images,
-	        title: action.title,
-	        type: action.type,
-	        hasRead: false
-	      };
-	      break;
-
-	    case _constants2.default.SET_READ_STATUS:
-	      // debugger;
-	      if (state.id !== action.id) {
-	        return state;
-	      }
-
-	      return (0, _objectAssign2.default)({}, state, {
-	        hasRead: action.hasRead
-	      });
-	      break;
-
-	    default:
-	      return state; //undefined
-	  }
-	};
-
-/***/ },
-/* 486 */
+/* 487 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -45997,7 +45998,93 @@
 
 
 /***/ },
-/* 487 */
+/* 488 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * story.js
+	 * @author ZhaoMing<zhaoming.me#gmail.com>
+	 * @date 24/05/2016
+	 */
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _objectAssign = __webpack_require__(487);
+
+	var _objectAssign2 = _interopRequireDefault(_objectAssign);
+
+	var _constants = __webpack_require__(481);
+
+	var _constants2 = _interopRequireDefault(_constants);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = function (state, action) {
+	  switch (action.type) {
+	    case _constants2.default.ADD_STORY:
+	      return {
+	        id: action.id,
+	        images: action.images,
+	        title: action.title,
+	        type: action.type,
+	        hasRead: false
+	      };
+	      break;
+
+	    case _constants2.default.SET_READ_STATUS:
+	      // debugger;
+	      if (state.id !== action.id) {
+	        return state;
+	      }
+	      // debugger;
+	      return (0, _objectAssign2.default)({}, state, {
+	        hasRead: action.hasRead
+	      });
+	      break;
+
+	    default:
+	      return state; //undefined
+	  }
+	};
+
+/***/ },
+/* 489 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _reactRedux = __webpack_require__(456);
+
+	var _app = __webpack_require__(490);
+
+	var _app2 = _interopRequireDefault(_app);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	/**
+	 * appContainer
+	 * @author ZhaoMing<zhaoming.me#gmail.com>
+	 * @date 25/05/2016
+	 */
+
+	var mapStateToProps = function mapStateToProps(state) {
+	  return state;
+	};
+
+	var AppContainer = (0, _reactRedux.connect)(mapStateToProps)(_app2.default);
+
+	exports.default = AppContainer;
+
+/***/ },
+/* 490 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -46014,36 +46101,93 @@
 	  value: true
 	});
 
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 	var _react = __webpack_require__(299);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _datepickerContainer = __webpack_require__(488);
+	var _datepickerContainer = __webpack_require__(491);
 
 	var _datepickerContainer2 = _interopRequireDefault(_datepickerContainer);
 
-	var _StoriesContainer = __webpack_require__(492);
+	var _StoriesContainer = __webpack_require__(498);
 
 	var _StoriesContainer2 = _interopRequireDefault(_StoriesContainer);
 
+	var _actionCreator = __webpack_require__(494);
+
+	var _actionCreator2 = _interopRequireDefault(_actionCreator);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	exports.default = function () {
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement(
-	      'h1',
-	      null,
-	      'Thinking in Redux'
-	    ),
-	    _react2.default.createElement(_datepickerContainer2.default, null),
-	    _react2.default.createElement(_StoriesContainer2.default, null)
-	  );
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var App = function (_Component) {
+	  _inherits(App, _Component);
+
+	  function App() {
+	    _classCallCheck(this, App);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(App).apply(this, arguments));
+	  }
+
+	  _createClass(App, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _props = this.props;
+	      var dispatch = _props.dispatch;
+	      var date = _props.date;
+
+	      dispatch(_actionCreator2.default.DO_REQUEST(date));
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      if (nextProps.date == this.props.date) return;
+
+	      var dispatch = nextProps.dispatch;
+	      var date = nextProps.date;
+
+	      dispatch(_actionCreator2.default.DO_REQUEST(date));
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'Thinking in Redux'
+	        ),
+	        _react2.default.createElement(_datepickerContainer2.default, null),
+	        _react2.default.createElement(_StoriesContainer2.default, null)
+	      );
+	    }
+	  }]);
+
+	  return App;
+	}(_react.Component);
+
+	App.propTypes = {
+	  date: _react.PropTypes.string.isRequired,
+	  stories: _react.PropTypes.shape({
+	    loading: _react.PropTypes.bool.isRequired,
+	    stories: _react.PropTypes.array.isRequired
+	  }),
+	  dispatch: _react.PropTypes.func.isRequired
 	};
 
+	exports.default = App;
+
 /***/ },
-/* 488 */
+/* 491 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46054,27 +46198,32 @@
 
 	var _reactRedux = __webpack_require__(456);
 
-	var _datepicker = __webpack_require__(489);
+	var _datepicker = __webpack_require__(492);
 
 	var _datepicker2 = _interopRequireDefault(_datepicker);
 
-	var _actionCreator = __webpack_require__(491);
+	var _actionCreator = __webpack_require__(494);
 
 	var _actionCreator2 = _interopRequireDefault(_actionCreator);
 
+	var _utils = __webpack_require__(483);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	/**
+	 * datepickerContainer
+	 * @author ZhaoMing<zhaoming.me#gmail.com>
+	 * @date 24/05/2016
+	 */
 
 	var mapStateToProps = function mapStateToProps(state) {
 	  return state;
-	}; /**
-	    * datepickerContainer
-	    * @author ZhaoMing<zhaoming.me#gmail.com>
-	    * @date 24/05/2016
-	    */
+	};
 
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
 	    onDateChange: function onDateChange(date) {
+	      date = (0, _utils.formatDate)(date);
 	      dispatch(_actionCreator2.default.SELECT_OTHER_DATE(date));
 	    }
 	  };
@@ -46085,7 +46234,7 @@
 	exports.default = DatepickerContainer;
 
 /***/ },
-/* 489 */
+/* 492 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46100,7 +46249,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _antd = __webpack_require__(490);
+	var _antd = __webpack_require__(493);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -46145,7 +46294,7 @@
 	exports.default = Datepicker;
 
 /***/ },
-/* 490 */
+/* 493 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*!
@@ -98191,25 +98340,42 @@
 	//# sourceMappingURL=antd.js.map
 
 /***/ },
-/* 491 */
-/***/ function(module, exports) {
+/* 494 */
+/***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
 	/**
 	 * actionCreator 動作生成器
 	 * @author ZhaoMing<zhaoming.me#gmail.com>
 	 * @date 24/05/2016
 	 */
 
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _isomorphicFetch = __webpack_require__(495);
+
+	var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
+
+	var _const = __webpack_require__(497);
+
+	var _const2 = _interopRequireDefault(_const);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 	var actionCreator = {
 	  SET_READ_STATUS: function SET_READ_STATUS(id) {
 	    return {
 	      type: 'SET_READ_STATUS',
 	      hasRead: true,
+	      id: id
+	    };
+	  },
+	  DELETE_STORY: function DELETE_STORY(id) {
+	    return {
+	      type: 'DELETE_STORY',
 	      id: id
 	    };
 	  },
@@ -98228,13 +98394,538 @@
 	    return {
 	      type: 'REQUEST_POSTS'
 	    };
+	  },
+	  DO_REQUEST: function DO_REQUEST(date) {
+	    var _this = this;
+
+	    return function (dispatch) {
+	      dispatch(_this.REQUEST_POSTS());
+	      console.log(date);
+	      // 发送请求
+	      var promise = (0, _isomorphicFetch2.default)(_const2.default.YAHOO + _const2.default.API + date + _const2.default.YAHOO_SUFFIX);
+
+	      return promise.then(function (response) {
+	        dispatch(_this.RECEIVE_POSTS());
+	        // promise object
+	        return response.json();
+	      }).then(function (data) {
+	        console.log(data);
+	        var stories = data.query.results.json.stories;
+	        var _iteratorNormalCompletion = true;
+	        var _didIteratorError = false;
+	        var _iteratorError = undefined;
+
+	        try {
+
+	          for (var _iterator = stories[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	            var o = _step.value;
+
+	            o.hasRead = false;
+	          }
+	        } catch (err) {
+	          _didIteratorError = true;
+	          _iteratorError = err;
+	        } finally {
+	          try {
+	            if (!_iteratorNormalCompletion && _iterator.return) {
+	              _iterator.return();
+	            }
+	          } finally {
+	            if (_didIteratorError) {
+	              throw _iteratorError;
+	            }
+	          }
+	        }
+
+	        dispatch(_this.NEW_STORIES(stories));
+	      });
+	    };
+	  },
+	  NEW_STORIES: function NEW_STORIES(arr) {
+	    return {
+	      type: 'NEW_STORIES',
+	      stories: arr
+	    };
 	  }
 	};
 
 	exports.default = actionCreator;
 
 /***/ },
-/* 492 */
+/* 495 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// the whatwg-fetch polyfill installs the fetch() function
+	// on the global object (window or self)
+	//
+	// Return that as the export for use in Webpack, Browserify etc.
+	__webpack_require__(496);
+	module.exports = self.fetch.bind(self);
+
+
+/***/ },
+/* 496 */
+/***/ function(module, exports) {
+
+	(function(self) {
+	  'use strict';
+
+	  if (self.fetch) {
+	    return
+	  }
+
+	  var support = {
+	    searchParams: 'URLSearchParams' in self,
+	    iterable: 'Symbol' in self && 'iterator' in Symbol,
+	    blob: 'FileReader' in self && 'Blob' in self && (function() {
+	      try {
+	        new Blob()
+	        return true
+	      } catch(e) {
+	        return false
+	      }
+	    })(),
+	    formData: 'FormData' in self,
+	    arrayBuffer: 'ArrayBuffer' in self
+	  }
+
+	  function normalizeName(name) {
+	    if (typeof name !== 'string') {
+	      name = String(name)
+	    }
+	    if (/[^a-z0-9\-#$%&'*+.\^_`|~]/i.test(name)) {
+	      throw new TypeError('Invalid character in header field name')
+	    }
+	    return name.toLowerCase()
+	  }
+
+	  function normalizeValue(value) {
+	    if (typeof value !== 'string') {
+	      value = String(value)
+	    }
+	    return value
+	  }
+
+	  // Build a destructive iterator for the value list
+	  function iteratorFor(items) {
+	    var iterator = {
+	      next: function() {
+	        var value = items.shift()
+	        return {done: value === undefined, value: value}
+	      }
+	    }
+
+	    if (support.iterable) {
+	      iterator[Symbol.iterator] = function() {
+	        return iterator
+	      }
+	    }
+
+	    return iterator
+	  }
+
+	  function Headers(headers) {
+	    this.map = {}
+
+	    if (headers instanceof Headers) {
+	      headers.forEach(function(value, name) {
+	        this.append(name, value)
+	      }, this)
+
+	    } else if (headers) {
+	      Object.getOwnPropertyNames(headers).forEach(function(name) {
+	        this.append(name, headers[name])
+	      }, this)
+	    }
+	  }
+
+	  Headers.prototype.append = function(name, value) {
+	    name = normalizeName(name)
+	    value = normalizeValue(value)
+	    var list = this.map[name]
+	    if (!list) {
+	      list = []
+	      this.map[name] = list
+	    }
+	    list.push(value)
+	  }
+
+	  Headers.prototype['delete'] = function(name) {
+	    delete this.map[normalizeName(name)]
+	  }
+
+	  Headers.prototype.get = function(name) {
+	    var values = this.map[normalizeName(name)]
+	    return values ? values[0] : null
+	  }
+
+	  Headers.prototype.getAll = function(name) {
+	    return this.map[normalizeName(name)] || []
+	  }
+
+	  Headers.prototype.has = function(name) {
+	    return this.map.hasOwnProperty(normalizeName(name))
+	  }
+
+	  Headers.prototype.set = function(name, value) {
+	    this.map[normalizeName(name)] = [normalizeValue(value)]
+	  }
+
+	  Headers.prototype.forEach = function(callback, thisArg) {
+	    Object.getOwnPropertyNames(this.map).forEach(function(name) {
+	      this.map[name].forEach(function(value) {
+	        callback.call(thisArg, value, name, this)
+	      }, this)
+	    }, this)
+	  }
+
+	  Headers.prototype.keys = function() {
+	    var items = []
+	    this.forEach(function(value, name) { items.push(name) })
+	    return iteratorFor(items)
+	  }
+
+	  Headers.prototype.values = function() {
+	    var items = []
+	    this.forEach(function(value) { items.push(value) })
+	    return iteratorFor(items)
+	  }
+
+	  Headers.prototype.entries = function() {
+	    var items = []
+	    this.forEach(function(value, name) { items.push([name, value]) })
+	    return iteratorFor(items)
+	  }
+
+	  if (support.iterable) {
+	    Headers.prototype[Symbol.iterator] = Headers.prototype.entries
+	  }
+
+	  function consumed(body) {
+	    if (body.bodyUsed) {
+	      return Promise.reject(new TypeError('Already read'))
+	    }
+	    body.bodyUsed = true
+	  }
+
+	  function fileReaderReady(reader) {
+	    return new Promise(function(resolve, reject) {
+	      reader.onload = function() {
+	        resolve(reader.result)
+	      }
+	      reader.onerror = function() {
+	        reject(reader.error)
+	      }
+	    })
+	  }
+
+	  function readBlobAsArrayBuffer(blob) {
+	    var reader = new FileReader()
+	    reader.readAsArrayBuffer(blob)
+	    return fileReaderReady(reader)
+	  }
+
+	  function readBlobAsText(blob) {
+	    var reader = new FileReader()
+	    reader.readAsText(blob)
+	    return fileReaderReady(reader)
+	  }
+
+	  function Body() {
+	    this.bodyUsed = false
+
+	    this._initBody = function(body) {
+	      this._bodyInit = body
+	      if (typeof body === 'string') {
+	        this._bodyText = body
+	      } else if (support.blob && Blob.prototype.isPrototypeOf(body)) {
+	        this._bodyBlob = body
+	      } else if (support.formData && FormData.prototype.isPrototypeOf(body)) {
+	        this._bodyFormData = body
+	      } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
+	        this._bodyText = body.toString()
+	      } else if (!body) {
+	        this._bodyText = ''
+	      } else if (support.arrayBuffer && ArrayBuffer.prototype.isPrototypeOf(body)) {
+	        // Only support ArrayBuffers for POST method.
+	        // Receiving ArrayBuffers happens via Blobs, instead.
+	      } else {
+	        throw new Error('unsupported BodyInit type')
+	      }
+
+	      if (!this.headers.get('content-type')) {
+	        if (typeof body === 'string') {
+	          this.headers.set('content-type', 'text/plain;charset=UTF-8')
+	        } else if (this._bodyBlob && this._bodyBlob.type) {
+	          this.headers.set('content-type', this._bodyBlob.type)
+	        } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
+	          this.headers.set('content-type', 'application/x-www-form-urlencoded;charset=UTF-8')
+	        }
+	      }
+	    }
+
+	    if (support.blob) {
+	      this.blob = function() {
+	        var rejected = consumed(this)
+	        if (rejected) {
+	          return rejected
+	        }
+
+	        if (this._bodyBlob) {
+	          return Promise.resolve(this._bodyBlob)
+	        } else if (this._bodyFormData) {
+	          throw new Error('could not read FormData body as blob')
+	        } else {
+	          return Promise.resolve(new Blob([this._bodyText]))
+	        }
+	      }
+
+	      this.arrayBuffer = function() {
+	        return this.blob().then(readBlobAsArrayBuffer)
+	      }
+
+	      this.text = function() {
+	        var rejected = consumed(this)
+	        if (rejected) {
+	          return rejected
+	        }
+
+	        if (this._bodyBlob) {
+	          return readBlobAsText(this._bodyBlob)
+	        } else if (this._bodyFormData) {
+	          throw new Error('could not read FormData body as text')
+	        } else {
+	          return Promise.resolve(this._bodyText)
+	        }
+	      }
+	    } else {
+	      this.text = function() {
+	        var rejected = consumed(this)
+	        return rejected ? rejected : Promise.resolve(this._bodyText)
+	      }
+	    }
+
+	    if (support.formData) {
+	      this.formData = function() {
+	        return this.text().then(decode)
+	      }
+	    }
+
+	    this.json = function() {
+	      return this.text().then(JSON.parse)
+	    }
+
+	    return this
+	  }
+
+	  // HTTP methods whose capitalization should be normalized
+	  var methods = ['DELETE', 'GET', 'HEAD', 'OPTIONS', 'POST', 'PUT']
+
+	  function normalizeMethod(method) {
+	    var upcased = method.toUpperCase()
+	    return (methods.indexOf(upcased) > -1) ? upcased : method
+	  }
+
+	  function Request(input, options) {
+	    options = options || {}
+	    var body = options.body
+	    if (Request.prototype.isPrototypeOf(input)) {
+	      if (input.bodyUsed) {
+	        throw new TypeError('Already read')
+	      }
+	      this.url = input.url
+	      this.credentials = input.credentials
+	      if (!options.headers) {
+	        this.headers = new Headers(input.headers)
+	      }
+	      this.method = input.method
+	      this.mode = input.mode
+	      if (!body) {
+	        body = input._bodyInit
+	        input.bodyUsed = true
+	      }
+	    } else {
+	      this.url = input
+	    }
+
+	    this.credentials = options.credentials || this.credentials || 'omit'
+	    if (options.headers || !this.headers) {
+	      this.headers = new Headers(options.headers)
+	    }
+	    this.method = normalizeMethod(options.method || this.method || 'GET')
+	    this.mode = options.mode || this.mode || null
+	    this.referrer = null
+
+	    if ((this.method === 'GET' || this.method === 'HEAD') && body) {
+	      throw new TypeError('Body not allowed for GET or HEAD requests')
+	    }
+	    this._initBody(body)
+	  }
+
+	  Request.prototype.clone = function() {
+	    return new Request(this)
+	  }
+
+	  function decode(body) {
+	    var form = new FormData()
+	    body.trim().split('&').forEach(function(bytes) {
+	      if (bytes) {
+	        var split = bytes.split('=')
+	        var name = split.shift().replace(/\+/g, ' ')
+	        var value = split.join('=').replace(/\+/g, ' ')
+	        form.append(decodeURIComponent(name), decodeURIComponent(value))
+	      }
+	    })
+	    return form
+	  }
+
+	  function headers(xhr) {
+	    var head = new Headers()
+	    var pairs = (xhr.getAllResponseHeaders() || '').trim().split('\n')
+	    pairs.forEach(function(header) {
+	      var split = header.trim().split(':')
+	      var key = split.shift().trim()
+	      var value = split.join(':').trim()
+	      head.append(key, value)
+	    })
+	    return head
+	  }
+
+	  Body.call(Request.prototype)
+
+	  function Response(bodyInit, options) {
+	    if (!options) {
+	      options = {}
+	    }
+
+	    this.type = 'default'
+	    this.status = options.status
+	    this.ok = this.status >= 200 && this.status < 300
+	    this.statusText = options.statusText
+	    this.headers = options.headers instanceof Headers ? options.headers : new Headers(options.headers)
+	    this.url = options.url || ''
+	    this._initBody(bodyInit)
+	  }
+
+	  Body.call(Response.prototype)
+
+	  Response.prototype.clone = function() {
+	    return new Response(this._bodyInit, {
+	      status: this.status,
+	      statusText: this.statusText,
+	      headers: new Headers(this.headers),
+	      url: this.url
+	    })
+	  }
+
+	  Response.error = function() {
+	    var response = new Response(null, {status: 0, statusText: ''})
+	    response.type = 'error'
+	    return response
+	  }
+
+	  var redirectStatuses = [301, 302, 303, 307, 308]
+
+	  Response.redirect = function(url, status) {
+	    if (redirectStatuses.indexOf(status) === -1) {
+	      throw new RangeError('Invalid status code')
+	    }
+
+	    return new Response(null, {status: status, headers: {location: url}})
+	  }
+
+	  self.Headers = Headers
+	  self.Request = Request
+	  self.Response = Response
+
+	  self.fetch = function(input, init) {
+	    return new Promise(function(resolve, reject) {
+	      var request
+	      if (Request.prototype.isPrototypeOf(input) && !init) {
+	        request = input
+	      } else {
+	        request = new Request(input, init)
+	      }
+
+	      var xhr = new XMLHttpRequest()
+
+	      function responseURL() {
+	        if ('responseURL' in xhr) {
+	          return xhr.responseURL
+	        }
+
+	        // Avoid security warnings on getResponseHeader when not allowed by CORS
+	        if (/^X-Request-URL:/m.test(xhr.getAllResponseHeaders())) {
+	          return xhr.getResponseHeader('X-Request-URL')
+	        }
+
+	        return
+	      }
+
+	      xhr.onload = function() {
+	        var options = {
+	          status: xhr.status,
+	          statusText: xhr.statusText,
+	          headers: headers(xhr),
+	          url: responseURL()
+	        }
+	        var body = 'response' in xhr ? xhr.response : xhr.responseText
+	        resolve(new Response(body, options))
+	      }
+
+	      xhr.onerror = function() {
+	        reject(new TypeError('Network request failed'))
+	      }
+
+	      xhr.ontimeout = function() {
+	        reject(new TypeError('Network request failed'))
+	      }
+
+	      xhr.open(request.method, request.url, true)
+
+	      if (request.credentials === 'include') {
+	        xhr.withCredentials = true
+	      }
+
+	      if ('responseType' in xhr && support.blob) {
+	        xhr.responseType = 'blob'
+	      }
+
+	      request.headers.forEach(function(value, name) {
+	        xhr.setRequestHeader(name, value)
+	      })
+
+	      xhr.send(typeof request._bodyInit === 'undefined' ? null : request._bodyInit)
+	    })
+	  }
+	  self.fetch.polyfill = true
+	})(typeof self !== 'undefined' ? self : this);
+
+
+/***/ },
+/* 497 */
+/***/ function(module, exports) {
+
+	/**
+	 * const 項目配置常量
+	 * @author ZhaoMing<zhaoming.me#gmail.com>
+	 * @date 24/05/2016
+	 */
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = {
+	  URL_PREFIX: 'http://daily.zhihu.com/story/',
+	  API: 'http://news-at.zhihu.com/api/4/news/before/',
+	  YAHOO: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20json%20where%20url=%22',
+	  YAHOO_SUFFIX: '%22&format=json'
+	};
+
+/***/ },
+/* 498 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -98251,11 +98942,11 @@
 
 	var _reactRedux = __webpack_require__(456);
 
-	var _stories = __webpack_require__(493);
+	var _stories = __webpack_require__(499);
 
 	var _stories2 = _interopRequireDefault(_stories);
 
-	var _actionCreator = __webpack_require__(491);
+	var _actionCreator = __webpack_require__(494);
 
 	var _actionCreator2 = _interopRequireDefault(_actionCreator);
 
@@ -98273,6 +98964,10 @@
 	    onChildClick: function onChildClick(id) {
 	      // debugger;
 	      dispatch(_actionCreator2.default.SET_READ_STATUS(id));
+	    },
+
+	    deleteChildBtn: function deleteChildBtn(id) {
+	      dispatch(_actionCreator2.default.DELETE_STORY(id));
 	    }
 	  };
 	};
@@ -98282,7 +98977,7 @@
 	exports.default = StoriesContainer;
 
 /***/ },
-/* 493 */
+/* 499 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -98305,7 +99000,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _story = __webpack_require__(494);
+	var _story = __webpack_require__(500);
 
 	var _story2 = _interopRequireDefault(_story);
 
@@ -98315,6 +99010,7 @@
 	  var stories = _ref.stories;
 	  var loading = _ref.loading;
 	  var onChildClick = _ref.onChildClick;
+	  var deleteChildBtn = _ref.deleteChildBtn;
 
 	  if (loading) return _react2.default.createElement(
 	    'div',
@@ -98329,6 +99025,9 @@
 	      }, story, {
 	        onClick: function onClick() {
 	          return onChildClick(story.id);
+	        },
+	        deleteBtn: function deleteBtn() {
+	          return deleteChildBtn(story.id);
 	        }
 	      }));
 	    })
@@ -98343,13 +99042,14 @@
 	    title: _react.PropTypes.string.isRequired,
 	    type: _react.PropTypes.string.isRequired
 	  }).isRequired).isRequired,
-	  onChildClick: _react.PropTypes.func.isRequired
+	  onChildClick: _react.PropTypes.func.isRequired,
+	  deleteChildBtn: _react.PropTypes.func.isRequired
 	};
 
 	exports.default = Stories;
 
 /***/ },
-/* 494 */
+/* 500 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -98370,11 +99070,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _classnames = __webpack_require__(495);
+	var _classnames = __webpack_require__(501);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _const = __webpack_require__(496);
+	var _const = __webpack_require__(497);
 
 	var _const2 = _interopRequireDefault(_const);
 
@@ -98387,6 +99087,7 @@
 	  var type = _ref.type;
 	  var hasRead = _ref.hasRead;
 	  var onClick = _ref.onClick;
+	  var deleteBtn = _ref.deleteBtn;
 	  return _react2.default.createElement(
 	    'li',
 	    { type: type, className: (0, _classnames2.default)({
@@ -98403,6 +99104,11 @@
 	      'a',
 	      { href: _const2.default.URL_PREFIX + id, onClick: onClick, target: '_blank' },
 	      title
+	    ),
+	    _react2.default.createElement(
+	      'span',
+	      { className: 'i-x', onClick: deleteBtn },
+	      'x'
 	    )
 	  );
 	};
@@ -98411,6 +99117,7 @@
 	  id: _react.PropTypes.string.isRequired,
 	  images: _react.PropTypes.string.isRequired,
 	  onClick: _react.PropTypes.func.isRequired,
+	  deleteBtn: _react.PropTypes.func.isRequired,
 	  hasRead: _react.PropTypes.bool.isRequired,
 	  title: _react.PropTypes.string.isRequired,
 	  type: _react.PropTypes.string.isRequired
@@ -98419,7 +99126,7 @@
 	exports.default = Story;
 
 /***/ },
-/* 495 */
+/* 501 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -98473,57 +99180,10 @@
 
 
 /***/ },
-/* 496 */
-/***/ function(module, exports) {
-
-	/**
-	 * const 項目配置常量
-	 * @author ZhaoMing<zhaoming.me#gmail.com>
-	 * @date 24/05/2016
-	 */
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = {
-	  URL_PREFIX: 'http://daily.zhihu.com/story/'
-	};
-
-/***/ },
-/* 497 */
+/* 502 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 498 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	function createThunkMiddleware(extraArgument) {
-	  return function (_ref) {
-	    var dispatch = _ref.dispatch;
-	    var getState = _ref.getState;
-	    return function (next) {
-	      return function (action) {
-	        if (typeof action === 'function') {
-	          return action(dispatch, getState, extraArgument);
-	        }
-
-	        return next(action);
-	      };
-	    };
-	  };
-	}
-
-	var thunk = createThunkMiddleware();
-	thunk.withExtraArgument = createThunkMiddleware;
-
-	exports['default'] = thunk;
 
 /***/ }
 /******/ ]);

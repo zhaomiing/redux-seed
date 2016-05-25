@@ -13,10 +13,11 @@ h1{
 }
 
 .m-storyItem{
+  position: relative;
   float: left;
   width: 160px;
   height: 100px;
-  margin-right: 10px;
+  margin:10px 10px 0 0;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -27,6 +28,19 @@ h1{
   a:first-child{
     display: block;
     text-align: center;
+  }
+  .i-x{
+    display: none;
+    position: absolute;
+    top: 0 ;
+    left: 5px;
+    cursor: pointer;
+    color: #ccc;
+  }
+  &:hover{
+    .i-x{
+      display: inline;
+    }
   }
 }
 

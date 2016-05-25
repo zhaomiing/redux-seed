@@ -26,7 +26,7 @@ export default (state, action) => {
       if (state.id !== action.id) {
         return state
       }
-
+      // debugger;
       return assign({}, state, {
         hasRead: action.hasRead
       });
