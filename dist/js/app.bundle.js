@@ -46164,10 +46164,15 @@
 	        _react2.default.createElement(
 	          'h1',
 	          null,
-	          'Thinking in Redux'
+	          '知乎日报'
 	        ),
 	        _react2.default.createElement(_datepickerContainer2.default, null),
-	        _react2.default.createElement(_StoriesContainer2.default, null)
+	        _react2.default.createElement(_StoriesContainer2.default, null),
+	        _react2.default.createElement(
+	          'p',
+	          { className: 'm-footer' },
+	          'Thinking in Redux'
+	        )
 	      );
 	    }
 	  }]);

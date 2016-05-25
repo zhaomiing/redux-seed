@@ -29,9 +29,10 @@ class App extends Component {
   render() {
     return (
         <div>
-          <h1>Thinking in Redux</h1>
+          <h1>知乎日报</h1>
           <DatepickerContainer />
           <StoriesContainer />
+          <p className="m-footer">Thinking in Redux</p>
         </div>
     );
   }

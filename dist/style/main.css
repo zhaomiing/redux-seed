@@ -11095,7 +11095,9 @@ h1 {
   margin: 0  0 20px 0; }
 
 .m-storyList {
-  margin: 10px 0; }
+  margin: 10px 0;
+  overflow: hidden;
+  zoom: 1; }
 
 .m-storyItem {
   position: relative;
@@ -11122,6 +11124,10 @@ h1 {
   .m-storyItem:hover .i-x {
     display: inline; }
 
+.m-footer {
+  position: fixed;
+  bottom: 100px; }
+
 .s-read {
   background-color: #ffc; }
   .s-read a {
@@ -11134,9 +11140,10 @@ h1 {
   z-index: 100001;
   width: 200px;
   height: 25px;
+  border: 1px solid #ccc;
+  border-radius: 0 0 3px 3px;
   line-height: 25px;
   text-align: center;
-  margin-left: -100px;
+  margin: -1px 0 0 -100px;
   font-size: 14px;
-  background-color: #31708f;
-  color: #fff; }
+  color: #999; }
