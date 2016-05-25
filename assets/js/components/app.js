@@ -32,7 +32,7 @@ class App extends Component {
           <h1>知乎日报</h1>
           <DatepickerContainer />
           <StoriesContainer />
-          <p className="m-footer">Thinking in Redux</p>
+          <p className="m-footer">Powered by Redux</p>
         </div>
     );
   }

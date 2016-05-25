@@ -46171,7 +46171,7 @@
 	        _react2.default.createElement(
 	          'p',
 	          { className: 'm-footer' },
-	          'Thinking in Redux'
+	          'Powered by Redux'
 	        )
 	      );
 	    }
