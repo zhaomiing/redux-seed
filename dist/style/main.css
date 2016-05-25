@@ -11096,6 +11096,7 @@ h1 {
 
 .m-storyList {
   margin: 10px 0;
+  padding: 10px 0;
   overflow: hidden;
   zoom: 1; }
 
@@ -11103,11 +11104,10 @@ h1 {
   position: relative;
   float: left;
   width: 160px;
-  height: 100px;
-  margin: 10px 10px 0 0;
+  height: 130px;
+  margin: -1px -1px 0 0;
   padding: 20px;
   border: 1px solid #ccc;
-  border-radius: 5px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
