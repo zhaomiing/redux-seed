@@ -12,8 +12,6 @@ import React from 'react';
 import DatepickerContainer  from '../containers/datepickerContainer';
 import StoriesContainer from '../containers/StoriesContainer';
 
-console.log(DatepickerContainer);
-
 export default () => {
   return (
       <div>

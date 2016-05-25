@@ -11,19 +11,24 @@
 import React, { PropTypes } from 'react';
 import Story from './story';
 
-const Stories = ({ stories, onChildClick }) => (
-  <ul className="m-storyList">
-    {
-      stories.map(story =>
-        <Story
-          key={ story.id }
-          { ...story }
-          onClick={ () => onChildClick(story.id) }
-        />
-      )
-    }
-  </ul>
-);
+const Stories = ({ stories, loading, onChildClick }) => {
+  if(loading) return (
+      <div className="m-loading">loading</div>
+  );
+  else return (
+    <ul className="m-storyList">
+      {
+        stories.map(story =>
+          <Story
+            key={ story.id }
+            { ...story }
+            onClick={ () => onChildClick(story.id) }
+          />
+        )
+      }
+    </ul>
+  )
+};
 
 Stories.propTypes = {
   stories: PropTypes.arrayOf(PropTypes.shape({

@@ -10,5 +10,7 @@ export default keyMirror({
   SELECT_OTHER_DATE: null,
   DELETE_STORY: null,
   ADD_STORY: null,
-  SET_READ_STATUS: null
+  SET_READ_STATUS: null,
+  RECEIVE_POSTS: null,
+  REQUEST_POSTS: null
 });

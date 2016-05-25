@@ -14,7 +14,7 @@ class Datepicker extends Component {
 
   render() {
     return (
-        <DatePicker onChange={ this.onDateChange.bind(this) } />
+        <DatePicker onChange={ this.onDateChange.bind(this) } defaultValue={new Date()} />
     )
   }
 }

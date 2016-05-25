@@ -8,33 +8,39 @@
 
 import _ from 'lodash';
 import actionType from '../constants';
+import assign from 'object-assign';
 import storyReducer from './story';
 
-export default (state = [
-    {
-      id: "8254093",
-      images: "http://pic1.zhimg.com/71c42b43cb61255362e1a7baebf2cc98.jpg",
-      hasRead:false,
-      title: "写满了贵的世界级名作，就在这些电影里",
-      type: "0"
-    }
-  ], action) => {
+const initState = {
+  loading: false,
+  stories: []
+};
+
+export default (state = initState, action) => {
   switch (action.type) {
     case actionType.DELETE_STORY:
-      let shadowState = state.slice();
+      let stories = state.stories.slice();
       
-      _.remove(shadowState, (item) => {
+      _.remove(stories, (item) => {
         return item['id'] == action.id;
       });
 
-      return shadowState;
+      return assign({}, state, { stories });
     break;
 
     case actionType.SET_READ_STATUS:
-      // debugger;
-      // debugger;
-      return state.map(story => {
+      return state.stories.map(story => {
         return storyReducer(story, action);
+      });
+
+    case actionType.REQUEST_POSTS:
+      return assign({}, state, {
+        loading: true
+      });
+
+    case actionType.RECEIVE_POSTS:
+      return assign({}, state, {
+        loading: false
       });
 
     default: 

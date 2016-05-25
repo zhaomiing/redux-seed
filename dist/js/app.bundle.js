@@ -64,6 +64,10 @@
 
 	var _redux = __webpack_require__(463);
 
+	var _reduxThunk = __webpack_require__(498);
+
+	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
+
 	var _reducers = __webpack_require__(478);
 
 	var _reducers2 = _interopRequireDefault(_reducers);
@@ -76,9 +80,9 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var store = (0, _redux.createStore)(_reducers2.default, window.devToolsExtension ? window.devToolsExtension() : function (f) {
+	var store = (0, _redux.createStore)(_reducers2.default, (0, _redux.compose)((0, _redux.applyMiddleware)(_reduxThunk2.default), window.devToolsExtension ? window.devToolsExtension() : function (f) {
 	    return f;
-	});
+	}));
 
 	(0, _reactDom.render)(_react2.default.createElement(
 	    _reactRedux.Provider,
@@ -29236,13 +29240,24 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var formatDate = function formatDate(d) {
+	  var year = d.getFullYear(),
+	      month = d.getMonth() + 1,
+	      date = d.getDate();
+
+	  if (month < 10) month = '0' + month;
+	  if (date < 10) date = '0' + date;
+
+	  return '' + year + month + date;
+	};
+
 	exports.default = function () {
-	  var state = arguments.length <= 0 || arguments[0] === undefined ? '20160505' : arguments[0];
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? formatDate(new Date()) : arguments[0];
 	  var action = arguments[1];
 
 	  switch (action.type) {
 	    case _constants2.default.SELECT_OTHER_DATE:
-	      return action.date;
+	      return formatDate(action.date);
 
 	    default:
 	      return state;
@@ -29269,7 +29284,9 @@
 	  SELECT_OTHER_DATE: null,
 	  DELETE_STORY: null,
 	  ADD_STORY: null,
-	  SET_READ_STATUS: null
+	  SET_READ_STATUS: null,
+	  RECEIVE_POSTS: null,
+	  REQUEST_POSTS: null
 	}); /**
 	     * action_types
 	     * @author ZhaoMing<zhaoming.me#gmail.com>
@@ -29359,38 +29376,49 @@
 
 	var _constants2 = _interopRequireDefault(_constants);
 
+	var _objectAssign = __webpack_require__(486);
+
+	var _objectAssign2 = _interopRequireDefault(_objectAssign);
+
 	var _story = __webpack_require__(485);
 
 	var _story2 = _interopRequireDefault(_story);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var initState = {
+	  loading: false,
+	  stories: []
+	};
+
 	exports.default = function () {
-	  var state = arguments.length <= 0 || arguments[0] === undefined ? [{
-	    id: "8254093",
-	    images: "http://pic1.zhimg.com/71c42b43cb61255362e1a7baebf2cc98.jpg",
-	    hasRead: false,
-	    title: "写满了贵的世界级名作，就在这些电影里",
-	    type: "0"
-	  }] : arguments[0];
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? initState : arguments[0];
 	  var action = arguments[1];
 
 	  switch (action.type) {
 	    case _constants2.default.DELETE_STORY:
-	      var shadowState = state.slice();
+	      var stories = state.stories.slice();
 
-	      _lodash2.default.remove(shadowState, function (item) {
+	      _lodash2.default.remove(stories, function (item) {
 	        return item['id'] == action.id;
 	      });
 
-	      return shadowState;
+	      return (0, _objectAssign2.default)({}, state, { stories: stories });
 	      break;
 
 	    case _constants2.default.SET_READ_STATUS:
-	      // debugger;
-	      // debugger;
-	      return state.map(function (story) {
+	      return state.stories.map(function (story) {
 	        return (0, _story2.default)(story, action);
+	      });
+
+	    case _constants2.default.REQUEST_POSTS:
+	      return (0, _objectAssign2.default)({}, state, {
+	        loading: true
+	      });
+
+	    case _constants2.default.RECEIVE_POSTS:
+	      return (0, _objectAssign2.default)({}, state, {
+	        loading: false
 	      });
 
 	    default:
@@ -46000,8 +46028,6 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	console.log(_datepickerContainer2.default);
-
 	exports.default = function () {
 	  return _react2.default.createElement(
 	    'div',
@@ -46105,7 +46131,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(_antd.DatePicker, { onChange: this.onDateChange.bind(this) });
+	      return _react2.default.createElement(_antd.DatePicker, { onChange: this.onDateChange.bind(this), defaultValue: new Date() });
 	    }
 	  }]);
 
@@ -98192,6 +98218,16 @@
 	      type: 'SELECT_OTHER_DATE',
 	      date: date
 	    };
+	  },
+	  RECEIVE_POSTS: function RECEIVE_POSTS() {
+	    return {
+	      type: 'RECEIVE_POSTS'
+	    };
+	  },
+	  REQUEST_POSTS: function REQUEST_POSTS() {
+	    return {
+	      type: 'REQUEST_POSTS'
+	    };
 	  }
 	};
 
@@ -98227,7 +98263,8 @@
 
 	var mapStateToProps = function mapStateToProps(state) {
 	  return {
-	    stories: state.stories
+	    stories: state.stories.stories,
+	    loading: state.stories.loading
 	  };
 	};
 
@@ -98276,8 +98313,14 @@
 
 	var Stories = function Stories(_ref) {
 	  var stories = _ref.stories;
+	  var loading = _ref.loading;
 	  var onChildClick = _ref.onChildClick;
-	  return _react2.default.createElement(
+
+	  if (loading) return _react2.default.createElement(
+	    'div',
+	    { className: 'm-loading' },
+	    'loading'
+	  );else return _react2.default.createElement(
 	    'ul',
 	    { className: 'm-storyList' },
 	    stories.map(function (story) {
@@ -98453,6 +98496,34 @@
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 498 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	function createThunkMiddleware(extraArgument) {
+	  return function (_ref) {
+	    var dispatch = _ref.dispatch;
+	    var getState = _ref.getState;
+	    return function (next) {
+	      return function (action) {
+	        if (typeof action === 'function') {
+	          return action(dispatch, getState, extraArgument);
+	        }
+
+	        return next(action);
+	      };
+	    };
+	  };
+	}
+
+	var thunk = createThunkMiddleware();
+	thunk.withExtraArgument = createThunkMiddleware;
+
+	exports['default'] = thunk;
 
 /***/ }
 /******/ ]);

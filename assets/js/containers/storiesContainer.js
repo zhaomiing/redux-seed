@@ -12,7 +12,8 @@ import actionCreator from '../actions/actionCreator';
 
 const mapStateToProps = (state) => {
   return {
-    stories: state.stories
+    stories: state.stories.stories,
+    loading: state.stories.loading
   }
 };
 

@@ -9,7 +9,7 @@ import Datepicker from '../components/datepicker';
 import actionCreator from '../actions/actionCreator';
 
 const mapStateToProps = (state) => {
-  return state
+  return state;
 };
 
 const mapDispatchToProps = (dispatch) => {

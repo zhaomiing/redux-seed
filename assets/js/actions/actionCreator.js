@@ -12,10 +12,23 @@ const actionCreator = {
       id
     }
   },
+
   SELECT_OTHER_DATE(date) {
     return {
       type: 'SELECT_OTHER_DATE',
       date: date
+    }
+  },
+
+  RECEIVE_POSTS() {
+    return {
+      type: 'RECEIVE_POSTS'
+    }
+  },
+
+  REQUEST_POSTS() {
+    return {
+      type: 'REQUEST_POSTS'
     }
   }
 };
