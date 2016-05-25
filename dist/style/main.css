@@ -11121,8 +11121,10 @@ h1 {
     left: 5px;
     cursor: pointer;
     color: #ccc; }
-  .m-storyItem:hover .i-x {
-    display: inline; }
+  .m-storyItem:hover {
+    background-color: #eee; }
+    .m-storyItem:hover .i-x {
+      display: inline; }
 
 .m-footer {
   position: fixed;
