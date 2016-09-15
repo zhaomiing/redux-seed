@@ -1,5 +1,8 @@
 # redux-seed
-redux quick start with es6/webpack
+基于react技术栈开发的快速启动脚手架
+
+[demo](https://zhaomiing.github.io/redux-seed/)（需翻墙）
+
 
 ```
 npm install
