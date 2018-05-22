@@ -4,7 +4,7 @@
 [demo](https://zhaomiing.github.io/redux-seed/)（需翻墙）
 
 
-```
+```bash
 npm install
 webpack
 ```
